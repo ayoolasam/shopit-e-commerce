@@ -14,6 +14,24 @@ if(err.name==='CastError'){
   error = new ErrorHandler(message,404)
 }
 
+//handle mongoose duplicate errors
+
+if(err.code ===11000){
+  const message =`Duplicate ${object.keys(err.keyValue)} entered`;
+  error = new ErrorHandler(message,400)
+}
+
+
+//handle wrong jwt error
+if(err.name==='jsonWebTokenError'){
+  const message =`JSON web token is invalid ,try again`;
+  error = new ErrorHandler(message,400)
+}
+//handle expired jwt error
+if(err.name==='TokenExpiredError'){
+  const message =`JSON web token is expired ,try again`;
+  error = new ErrorHandler(message,400)
+}
 
 
 //handle validation  error
