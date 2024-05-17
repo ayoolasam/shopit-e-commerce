@@ -2,6 +2,7 @@ const express = require('express')
 const app = express()
 require('dotenv').config()
 const productRoutes = require('./routes/productRoutes')
+const orderRoutes = require('./routes/orderRoutes.js')
 const  mongoose  = require('mongoose')
 const errorMiddleware = require('../backend/middlewares/errors.js')
 const authRoutes = require('./routes/authRoutes.js')
@@ -13,7 +14,7 @@ process.on('uncaughtException', (err)=>{
   console.log(`ERROR:${err}`)
   console.log("shtting down due uncaught exceptions")
   process.exit(1)
-   
+
 
 })
 app.use(mongoSanitize())
@@ -29,6 +30,7 @@ mongoose.connect(DB).then(()=>{
 app.use('/api/v1/products',productRoutes)
 
 app.use('/api/v1/users',authRoutes)
+app.use('/api/v1/orders',orderRoutes)
   app.use(errorMiddleware )
 
   const server =   app.listen(process.env.PORT,()=>{
