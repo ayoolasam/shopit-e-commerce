@@ -4,35 +4,44 @@ const errorHandler = require('../utils/errorHandler')
 const catchAsyncErrors = require('../middlewares/catchAsyncErrors.js')
 const APIFilters = require('../utils/apiFilters.js')
 const mongoose = require('mongoose')
+// const ErrorHandler = require('../utils/errorHandler')
 
 
 
 
 
 //GETTING ALL PRODUCTS
-exports.getProducts = catchAsyncErrors(async (req,res)=>{
-
+exports.getProducts = catchAsyncErrors(async (req,res,next)=>{
 
 
   const apiFilters = new APIFilters(Product,req.query).search().filters()
 
- const resPerPage = 4
+  const resPerPage = 4
   let products = await apiFilters.query
   let filteredProductsCount = products.length
   
+  
+
+
+  
   apiFilters.pagination(resPerPage);
-   products = await apiFilters.query.clone()
- console.log('req?.user',req?.user)
+products = await apiFilters.query.clone()
+
+
+
 res.status(200).json({
- result: products.length,
-  data:{
+  result: products.length,
+  
     resPerPage,
     filteredProductsCount,
-    products
-  },
+    products,
+  
 message:"allProducts"
 
 })
+
+
+  
 }
 )
 
@@ -73,8 +82,10 @@ try{
           return next(new errorHandler("products not found",404)) 
         }
 
-        return res.status(201).json({
-          product
+    res.status(200).json({
+        success:true,  
+            product
+          
         })
 }catch(err){
   console.log(err)

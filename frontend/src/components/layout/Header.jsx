@@ -1,5 +1,5 @@
 import React from 'react'
-import shopitLogo from '../images/shopit_logo.png'
+import shopitLogo from '../../images/shopit_logo.png'
 
 const Header = () => {
   return (
