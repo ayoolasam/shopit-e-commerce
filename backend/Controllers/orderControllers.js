@@ -170,13 +170,13 @@ exports.getOrder = catchAsyncErrors(async(req,res,next)=>{
     //update product stock
 order?.orderItems?.forEach(async(item)=>{
   const product = await Product.findById(item?.product?.toString())
-  product.stock = product.stock - item.quantity
+
   if(!product){
     return res.status(400).json({
       message:"product not found with this id"
     })
   }
-
+  product.stock = product.stock - item.quantity
   await product.save({validateBeforeSave:false})
 })
     
@@ -205,3 +205,24 @@ await order.save();
     })
     
     
+
+       //admin delete orders /api/v1/orders/admin/orders/:id
+  exports.deleteOrder = catchAsyncErrors(async(req,res,next)=>{
+
+
+    const order = await Order.findById(req.params.id)
+
+    if(!order){
+      return res.status(400).json({
+        message:"order not found with this Id"
+      })
+    } 
+
+    await order.deleteOne()
+
+    res.status(200).json({
+      message:"order sucessfully deleted",
+      success:true
+    })
+  })
+
