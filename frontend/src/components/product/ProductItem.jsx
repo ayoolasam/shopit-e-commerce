@@ -26,7 +26,7 @@ const ProductItem = ({product}) => {
           name='rating'
           starDimension='24px'
           starSpacing='1px'
-     
+    
         />
           <span id="no_of_reviews" className="pt-2 ps-2">{product?.numOfReviews} </span>
         </div>

@@ -1,6 +1,6 @@
 const ErrorHandler = require("../utils/errorHandler")
 
-module.exports = (err,res,next) => {
+module.exports = (err,req,res,next) => {
 let error = { 
   statusCode: err?.statusCode || 500,
   message:err.message || "internal Server error",
@@ -9,14 +9,14 @@ let error = {
 
 //handle invalid  mongoose ID error
 
-if(err.name==='CastError'){
+if(err.name=== 'CastError'){
   const message =`Resource not found. Invalid: ${err?.path}`;
   error = new ErrorHandler(message,404)
 }
 
 //handle mongoose duplicate errors
 
-if(err.code ===11000){
+if(err.code === 11000){
   const message =`Duplicate ${object.keys(err.keyValue)} entered`;
   error = new ErrorHandler(message,400)
 }
@@ -41,20 +41,23 @@ if(err.name==='ValidationError'){
   error = new ErrorHandler(message,400)
 }
 
-res.status(error.statusCode).json({
-  message: error.message,
-})
+// res.status(error.statusCode).json({
+//   success: false,
+//   message: error.message,
+//   ...(process.env.NODE_ENV === 'DEVELOPMENT' && { error: err, stack: err?.stack }),
+// });
+// };
 
 
 
-// if(process.env.NODE_ENV=== "DEVELOPMENT") {
-//   res.status(error.statusCode).json({
-//     message:error.message,
-//     error:err,
-//     stack:err?.stack
-//   })
-// }
-
+if(process.env.NODE_ENV=== "DEVELOPMENT") {
+  res.status(error.statusCode).json({
+    message:error.message,
+    error:err,
+    stack:err?.stack
+  })
+}
+}
 
 // if(process.env.NODE_ENV=== "PRODUCTION") {
 //   res.status(error.statusCode).json({
@@ -63,5 +66,5 @@ res.status(error.statusCode).json({
 //     stack:err?.stack
 //   })
 // }
-}
+
 

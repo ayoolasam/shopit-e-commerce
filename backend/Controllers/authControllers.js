@@ -11,9 +11,22 @@ const crypto = require('crypto')
 
 
 //Register User => /api/v1/users/register(post)
-exports.registerUser = catchAsyncErrors(async(req,res)=>{
+exports.registerUser = catchAsyncErrors(async(req,res,next)=>{
   try{
       const {name,email,password,role} = req.body
+
+
+
+const checkUser = await User.findOne({email})
+
+if(checkUser){
+  return  next(new ErrorHandler('user already found',400),)
+}
+
+if(password.length < 6){
+  return  next(new ErrorHandler('passsword should be more than 6 characters',400),)
+}
+
 
       const user = await User.create({
         name,
@@ -21,6 +34,8 @@ exports.registerUser = catchAsyncErrors(async(req,res)=>{
         password,
         role
       })
+    
+
 
       sendToken(user,201,res) 
 
@@ -36,44 +51,53 @@ exports.registerUser = catchAsyncErrors(async(req,res)=>{
 
 //Login User => /api/v1/users/login(post)
 exports.loginUser = catchAsyncErrors(async(req,res,next)=>{
-  try{
+  
 
               const {email,password} = req.body
 
               if(!email || !password){
-                return next(new ErrorHandler('please enter email $ password',400),)
+                return  next(new ErrorHandler('please enter email $ password',400),)
               }
 
 
               //Find user in the database
 
-              const user = await User.findOne({email}).select('+password')
+  const user = await User.findOne({email}).select('+password')
 
 
-              if(!user){
-                return next(new ErrorHandler('invalid email or password',401),)
-              }
+  if(!user){
+    const error = next(new ErrorHandler('invalid email or password',401),)
+    
+    return error
+  }
+
+          
                 
         //check if password is correct
 
         const isPasswordValid = await user.comparePassword(password)
 
         if(!isPasswordValid){
-          return next(new ErrorHandler('invalid  password',401),)
+          return next(new ErrorHandler("invalid  password",401),)
         }
 
 
 
-        sendToken(user,201,res) 
-          }catch(error){
-            console.log(err)
-            return res.status(404).json({
-            message:{
-              error
-            }
-            })
-          }
+        sendToken(user,201,res)
+  
+          // }catch(err){
+          //   console.log(err)
+          //   return res.status(404).json({
+          //   message:{
+          //     err
+          //   }
+          //   })
+          // }
         })
+
+
+
+
         //Log out User and clear cookie
         exports.logoutUser = catchAsyncErrors(async(req,res,next)=>{
         try{
@@ -213,9 +237,9 @@ try{
 
           res.status(200).json({
             message:"successful",
-            data:{
+            
               user
-            }
+            
           })
 
 

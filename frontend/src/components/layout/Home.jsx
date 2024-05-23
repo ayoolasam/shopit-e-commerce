@@ -4,6 +4,7 @@ import { useGetProductsQuery } from '../../redux/api/productsApi'
 import ProductItem from '../product/ProductItem'
 import Loader from '../layout/Loader'
 import toast from 'react-hot-toast'
+import CustomPagination from './CustomPagination.jsx'
 
 const Home = () => {
       const {data , isLoading , error , isError} = useGetProductsQuery()
@@ -18,7 +19,7 @@ toast.error(error?.data?.message);
 
 }
   
-},[isError])
+},[isError,error])
 
       
 if(isLoading) return  <Loader/>
@@ -31,7 +32,7 @@ if(isLoading) return  <Loader/>
 
     
     <div className="row">
-      <divc className="col-12 col-sm-6 col-md-12">
+      <div className="col-12 col-sm-6 col-md-12">
         <h1 id="products_heading" className="text-secondary">Latest Products</h1>
 
         <section id="products" className="mt-5">
@@ -48,7 +49,8 @@ if(isLoading) return  <Loader/>
       
           </div>
         </section>
-      </divc>
+        <CustomPagination resPerPage={data?.resPerPage} filteredProductsCount={data?.filteredProductsCount}/>
+      </div>
     </div>
 </>
   )

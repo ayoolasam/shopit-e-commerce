@@ -6,6 +6,8 @@ import {BrowserRouter,Routes,Route} from 'react-router-dom'
 
 import  { Toaster } from 'react-hot-toast';
 import ProductDetails from "./components/product/ProductDetails.jsx";
+import Login from "./components/auth/Login.jsx";
+import Register from "./components/auth/Register.jsx";
 
 function App() {
   return (
@@ -18,6 +20,8 @@ function App() {
     <Routes>
     <Route path="/" element={<Home/>}/>
     <Route path="/:id" element={<ProductDetails/>}/>
+    <Route path='/login' element={<Login/>}/>
+    <Route path="/register" element={<Register/>}/>
     </Routes>
 
   </div>

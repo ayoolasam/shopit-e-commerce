@@ -1,13 +1,15 @@
 const express = require('express')
 const app = express()
 require('dotenv').config()
-const productRoutes = require('./routes/productRoutes')
-const orderRoutes = require('./routes/orderRoutes.js')
 const  mongoose  = require('mongoose')
-const errorMiddleware = require('../backend/middlewares/errors.js')
-const authRoutes = require('./routes/authRoutes.js')
 const mongoSanitize = require('express-mongo-sanitize')
 const cookieParser = require('cookie-parser')
+
+const productRoutes = require('./routes/productRoutes')
+const orderRoutes = require('./routes/orderRoutes.js')
+const ErrorMiddleware = require('../backend/middlewares/errors.js')
+const authRoutes = require('./routes/authRoutes.js')
+
 
 
 process.on('uncaughtException', (err)=>{
@@ -31,7 +33,11 @@ app.use('/api/v1/products',productRoutes)
 
 app.use('/api/v1/users',authRoutes)
 app.use('/api/v1/orders',orderRoutes)
-  app.use(errorMiddleware )
+
+  app.use(ErrorMiddleware);
+
+
+
 
   const server =   app.listen(process.env.PORT,()=>{
   console.log(`server running on port ${process.env.PORT}`)
