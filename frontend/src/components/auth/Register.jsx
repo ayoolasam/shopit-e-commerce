@@ -3,19 +3,28 @@ import MetaData from '../layout/MetaData'
 import { useRegisterMutation } from '../../redux/api/authApi'
 import Toastify from 'toastify-js'
 import 'toastify-js/src/toastify.css'
+import {  useNavigate } from 'react-router-dom'
+import { useSelector } from 'react-redux'
 
 const Register = () => {
+  const navigate = useNavigate()
 const [name,setName]=useState('')
 const [password,setPassword]=useState('')
 const [email,setEmail]=useState('')
 
 const [register ,{isLoading,error,data}] = useRegisterMutation()
-console.log(data)
+
+const {isAuthenticated} = useSelector((state)=> state.auth)
 
 const errorMessage = error?.data?.message
 console.log(errorMessage)
 
 useEffect(()=>{
+
+    if(isAuthenticated){
+      navigate('/')
+    }
+
   if(error) {
     console.log(error)
 Toastify({

@@ -4,21 +4,29 @@ import { useLoginMutation } from '../../redux/api/authApi'
 import toast from 'react-hot-toast'
 import Toastify from 'toastify-js'
 import 'toastify-js/src/toastify.css'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
+import { useSelector } from 'react-redux'
 
 
 const Login = () => {
-
+const navigate = useNavigate();
       const [email,setEmail] = useState("")
       const[password,setPassword]= useState("")
 
       const [login,{isLoading, error, data}] = useLoginMutation();
       
+      const {isAuthenticated} = useSelector((state)=> state.auth)
+      
+
 
 const errorMessage = error?.data?.message
 console.log(errorMessage)
 
       useEffect(()=>{
+        if(isAuthenticated){
+          navigate('/')
+        }
+
       if(error) {
         console.log(error)
   Toastify({
@@ -30,7 +38,7 @@ console.log(errorMessage)
     backgroundColor:"linear-gradient(to right,#ff5f6d,#ffc371",
   }).showToast()
       }
-      },[error])
+      },[error,isAuthenticated])
 
 
       const submitHandler = (e)=>{

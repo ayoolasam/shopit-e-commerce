@@ -4,7 +4,7 @@ import {useSearchParams} from 'react-router-dom'
 import Pagination from 'react-js-pagination'
 
 
-const CustomPagination = (resPerPage,filteredProductsCount) => {
+const CustomPagination = ({resPerPage,filteredProductsCount}) => {
 const [currentPage , setCurrentPage] = useState()
   let [searchParams] = useSearchParams();
   const page = Number(searchParams.get('page'))|| 1;

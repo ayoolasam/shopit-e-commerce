@@ -1,14 +1,23 @@
 import React from "react";
 import shopitLogo from "../../images/shopit_logo.png";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useGetMeQuery } from "../../redux/api/userApi";
 import { useSelector } from "react-redux";
+import { useLazyLogoutQuery } from "../../redux/api/authApi";
+
 
 const Header = () => {
-  const { isLoading } = useGetMeQuery();
+const navigate = useNavigate()
 
+  const { isLoading } = useGetMeQuery();
+const [logout]=useLazyLogoutQuery()
   const { user } = useSelector((state) => state.auth);
 
+  const logoutHandler = ()=>{
+    logout()
+    //refresh this page navigate(0)
+    navigate(0)
+  }
   return (
     <nav className="navbar row">
       <div className="col-12 col-md-3 ps-5">
@@ -83,7 +92,7 @@ const Header = () => {
                 Profile{" "}
               </a>
 
-              <a className="dropdown-item text-danger" href="/">
+              <a className="dropdown-item text-danger" onClick={logoutHandler} href="/">
                 {" "}
                 Logout{" "}
               </a>
