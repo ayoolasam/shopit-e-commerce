@@ -87,10 +87,10 @@ const [logout]=useLazyLogoutQuery()
                 Orders{" "}
               </a>
 
-              <a className="dropdown-item" href="/me/profile">
+              <Link className="dropdown-item" to="/me/profile">
                 {" "}
                 Profile{" "}
-              </a>
+              </Link>
 
               <a className="dropdown-item text-danger" onClick={logoutHandler} href="/">
                 {" "}
