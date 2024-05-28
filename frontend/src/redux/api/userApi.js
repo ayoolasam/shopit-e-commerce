@@ -25,8 +25,16 @@ export const userApi = createApi({
             }
           }
         }),
-      
+      updateUser:builder.mutation({
+        query(body) {
+          return{
+            url:"/me/update",
+            method:"PUT",
+            body,
+          }
+        }
+      })
       }),
     })
 
-export const {useGetMeQuery} = userApi
+export const {useGetMeQuery,useUpdateUserMutation} = userApi
