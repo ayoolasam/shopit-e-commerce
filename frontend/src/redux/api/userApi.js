@@ -6,12 +6,13 @@ export const userApi = createApi({
       reducerPath:'userApi',
       //base url fetchbaseurl
       baseQuery: fetchBaseQuery({
-        baseUrl:"api/v1/users"
+        baseUrl:"/api/v1/users"
       }),
       //endpoints
       endpoints:(builder) => ({
         getMe : builder.query({
           query:() => '/me',
+          
           //transform the result
           transformResponse:(result) => result.user,
           async onQueryStarted(args,{dispatch,queryFulfilled}) {
@@ -25,7 +26,8 @@ export const userApi = createApi({
             }
           }
         }),
-      updateUser:builder.mutation({
+        
+      updateProfile: builder.mutation({
         query(body) {
           return{
             url:"/me/update",
@@ -37,4 +39,4 @@ export const userApi = createApi({
       }),
     })
 
-export const {useGetMeQuery,useUpdateUserMutation} = userApi
+export const {useGetMeQuery,useUpdateProfileMutation} = userApi

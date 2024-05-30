@@ -6,6 +6,7 @@ const User = require('../Models/user')
 
 //checks if the user is authenticated or not
 exports.isAuthenticatedUser = catchAsyncErrors(async(req,res,next)=>{
+  
 const {token}= req.cookies
 
 

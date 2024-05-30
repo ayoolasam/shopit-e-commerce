@@ -15,15 +15,16 @@ export const authApi = createApi({
           method:'POST',
           body,
         };
-      } ,async onQueryStarted(args,{dispatch,queryFulfilled}) {
-        try{
-          await queryFulfilled;
-          await dispatch (userApi.endpoints.getMe.initiate(null))
-        }catch(err){
-          console.log(err)
-        }
-      }
-    }),
+          } ,async onQueryStarted(args,{dispatch,queryFulfilled}) {
+            try{
+              await queryFulfilled;
+              await dispatch (userApi.endpoints.getMe.initiate(null))
+          }catch(err){
+              console.log(err)
+          }
+          }
+        }),
+    
     register: builder.mutation({
       query(body) {
         return {

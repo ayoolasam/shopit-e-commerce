@@ -251,6 +251,7 @@ exports.updatePassword = catchAsyncErrors(async (req, res, next) => {
 //update userDetails  /api/v1/me/update
 exports.updateUserDetails = catchAsyncErrors(async (req, res, next) => {
   try {
+    
     const newUserData = {
       name: req.body.name,
       email: req.body.email,
@@ -259,6 +260,10 @@ exports.updateUserDetails = catchAsyncErrors(async (req, res, next) => {
     const user = await User.findByIdAndUpdate(req.user._id, newUserData, {
       new: true,
     });
+
+if(!user){
+  return next(new ErrorHandler("not correct", 400));
+}
 
     res.status(200).json({
       user,
