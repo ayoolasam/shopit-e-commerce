@@ -10,6 +10,7 @@ import Login from "./components/auth/Login.jsx";
 import Register from "./components/auth/Register.jsx";
 import Profile from "./components/user/Profile.jsx";
 import UpdateUser from "./components/user/UpdateUser.jsx";
+import ProtectedRoute from "./components/auth/ProtectedRoute.jsx";
 
 function App() {
   return (
@@ -24,8 +25,16 @@ function App() {
             <Route path="/:id" element={<ProductDetails />} />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
-            <Route path="/me/profile" element={<Profile />} />
-            <Route path="/me/update_profile" element={<UpdateUser />} />
+            
+            <Route path="/me/profile" element={
+            <ProtectedRoute>
+              <Profile />
+              </ProtectedRoute>} />
+            <Route path="/me/update_profile" element={
+               <ProtectedRoute>
+                  <UpdateUser />
+               </ProtectedRoute>
+          } />
           </Routes>
         </div>
 

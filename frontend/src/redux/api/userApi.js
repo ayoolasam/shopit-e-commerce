@@ -1,5 +1,5 @@
 import {createApi,fetchBaseQuery} from '@reduxjs/toolkit/query/react'
-import { setIsAuthenticated, setUser } from '../feautures/userSlice'
+import { setIsAuthenticated, setUser,setLoading } from '../feautures/userSlice'
 
 
 export const userApi = createApi({
@@ -21,12 +21,14 @@ export const userApi = createApi({
     const {data} = await queryFulfilled
     dispatch(setUser(data))
     dispatch(setIsAuthenticated(true))
+    dispatch(setLoading(false))
             }catch(err){
+              dispatch(setLoading(false))
               console.log(err)
             }
           }
         }),
-        
+
       updateProfile: builder.mutation({
         query(body) {
           return{

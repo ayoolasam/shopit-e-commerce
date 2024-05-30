@@ -15,6 +15,7 @@ const UpdateUser = () => {
   const [updateProfile, { isLoading, error, isSuccess }] = useUpdateProfileMutation();
 
   const { user } = useSelector((state) => state.auth);
+  
 
   useEffect(() => {
     if (user) {
