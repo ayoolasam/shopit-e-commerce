@@ -12,6 +12,7 @@ import Profile from "./components/user/Profile.jsx";
 import UpdateUser from "./components/user/UpdateUser.jsx";
 import ProtectedRoute from "./components/auth/ProtectedRoute.jsx";
 import UploadAvatar from "./components/user/UploadAvatar.jsx";
+import UpdatePassword from "./components/user/UpdatePassword.jsx";
 
 function App() {
   return (
@@ -48,6 +49,14 @@ function App() {
               element={
                 <ProtectedRoute>
                   <UploadAvatar/>
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/me/update_password"
+              element={
+                <ProtectedRoute>
+                  <UpdatePassword/>
                 </ProtectedRoute>
               }
             />

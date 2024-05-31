@@ -56,14 +56,21 @@ const UploadAvatar = () => {
   }
 
   const onChange =(e)=>{
-    const reader = new FileReader();
+    // The FileReader object allows web applications to asynchronously read the contents of files (or raw data buffers) stored on the user's computer.
+    const reader = new FileReader(); 
 
+
+
+    //after the reading is done
     reader.onload = ()=> {
-      if(reader.readyState=== 2){
+      //it would check if it is ready and set the states with the reader.result
+      if(reader.readyState === 2){
         setAvatarPreview(reader.result)
         setAvatar(reader.result)
       }
     }
+
+    //reader would read the file as a data url
     reader.readAsDataURL(e.target.files[0])
 
   }
@@ -85,7 +92,8 @@ const UploadAvatar = () => {
           <div className="d-flex align-items-center">
             <div className="me-3">
               <figure className="avatar item-rtl">
-                <img src={avatarPreview} className="rounded-circle" alt="image" />
+                {/* preview of the image  */}
+                <img src={avatarPreview} className="rounded-circle" alt="avatarPreview" />
               </figure>
             </div>
             <div className="input-foam">

@@ -5,7 +5,7 @@ const sendToken = require("../utils/sendToken.js");
 const { resetPasswordTemplate } = require("../utils/emailTemplates.js");
 const sendEmail = require("../utils/sendEmail.js");
 const crypto = require("crypto");
-const {upload_file} = require('../utils/cloudinary.js')
+const { upload_file } = require("../utils/cloudinary.js");
 
 //Register User => /api/v1/users/register(post)
 exports.registerUser = catchAsyncErrors(async (req, res, next) => {
@@ -252,7 +252,6 @@ exports.updatePassword = catchAsyncErrors(async (req, res, next) => {
 //update userDetails  /api/v1/me/update
 exports.updateUserDetails = catchAsyncErrors(async (req, res, next) => {
   try {
-    
     const newUserData = {
       name: req.body.name,
       email: req.body.email,
@@ -262,9 +261,9 @@ exports.updateUserDetails = catchAsyncErrors(async (req, res, next) => {
       new: true,
     });
 
-if(!user){
-  return next(new ErrorHandler("not correct", 400));
-}
+    if (!user) {
+      return next(new ErrorHandler("not correct", 400));
+    }
 
     res.status(200).json({
       user,
@@ -373,15 +372,16 @@ exports.deleteUsers = catchAsyncErrors(async (req, res, next) => {
 });
 
 // upload user avatar  /api/v1/me/upload_avatar
-exports.uploadAvatar  = catchAsyncErrors(async (req, res, next) => {
+exports.uploadAvatar = catchAsyncErrors(async (req, res, next) => {
   try {
-  const avatarResponse = await  upload_file(req.body.avatar,"shopit/avatar");
-  const user = await User.findByIdAndUpdate(req?.user._id,{
-    avatar:avatarResponse
-  })
+    const avatarResponse = await upload_file(req.body.avatar, "shopit/avatar");
+
+    const user = await User.findByIdAndUpdate(req?.user._id, {
+      avatar: avatarResponse,
+    });
     res.status(200).json({
       message: "succesful",
-      user
+      user,
     });
   } catch (error) {
     console.log(error);
@@ -392,4 +392,3 @@ exports.uploadAvatar  = catchAsyncErrors(async (req, res, next) => {
     });
   }
 });
-
