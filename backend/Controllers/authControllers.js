@@ -5,6 +5,7 @@ const sendToken = require("../utils/sendToken.js");
 const { resetPasswordTemplate } = require("../utils/emailTemplates.js");
 const sendEmail = require("../utils/sendEmail.js");
 const crypto = require("crypto");
+const {upload_file} = require('../utils/cloudinary.js')
 
 //Register User => /api/v1/users/register(post)
 exports.registerUser = catchAsyncErrors(async (req, res, next) => {
@@ -370,3 +371,25 @@ exports.deleteUsers = catchAsyncErrors(async (req, res, next) => {
     });
   }
 });
+
+// upload user avatar  /api/v1/me/upload_avatar
+exports.uploadAvatar  = catchAsyncErrors(async (req, res, next) => {
+  try {
+  const avatarResponse = await  upload_file(req.body.avatar,"shopit/avatar");
+  const user = await User.findByIdAndUpdate(req?.user._id,{
+    avatar:avatarResponse
+  })
+    res.status(200).json({
+      message: "succesful",
+      user
+    });
+  } catch (error) {
+    console.log(error);
+    return res.status(404).json({
+      message: {
+        error,
+      },
+    });
+  }
+});
+

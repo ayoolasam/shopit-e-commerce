@@ -11,9 +11,10 @@ const Profile = () => {
         <div className="col-12 col-md-3">
           <figure className="avatar avatar-profile">
             <img
+            style={{height:"100%",width:"100%"}}
               className="rounded-circle img-fluid"
-              src="../images/default_avatar.jpg"
-              alt=""
+              src={user?.avatar}
+              alt="avatar"
             />
           </figure>
         </div>

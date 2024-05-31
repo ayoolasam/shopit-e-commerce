@@ -11,6 +11,7 @@ import Register from "./components/auth/Register.jsx";
 import Profile from "./components/user/Profile.jsx";
 import UpdateUser from "./components/user/UpdateUser.jsx";
 import ProtectedRoute from "./components/auth/ProtectedRoute.jsx";
+import UploadAvatar from "./components/user/UploadAvatar.jsx";
 
 function App() {
   return (
@@ -25,16 +26,31 @@ function App() {
             <Route path="/:id" element={<ProductDetails />} />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
-            
-            <Route path="/me/profile" element={
-            <ProtectedRoute>
-              <Profile />
-              </ProtectedRoute>} />
-            <Route path="/me/update_profile" element={
-               <ProtectedRoute>
+
+            <Route
+              path="/me/profile"
+              element={
+                <ProtectedRoute>
+                  <Profile />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/me/update_profile"
+              element={
+                <ProtectedRoute>
                   <UpdateUser />
-               </ProtectedRoute>
-          } />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/me/upload_avatar"
+              element={
+                <ProtectedRoute>
+                  <UploadAvatar/>
+                </ProtectedRoute>
+              }
+            />
           </Routes>
         </div>
 

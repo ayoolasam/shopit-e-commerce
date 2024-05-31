@@ -44,5 +44,10 @@ router.delete(
   protectRoute.authorizeRoles("admin"),
   userController.deleteUsers
 );
+router.put(
+  "/me/update_avatar",
+  protectRoute.isAuthenticatedUser,
+  userController.uploadAvatar
+);
 
 module.exports = router;
