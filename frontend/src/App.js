@@ -13,6 +13,8 @@ import UpdateUser from "./components/user/UpdateUser.jsx";
 import ProtectedRoute from "./components/auth/ProtectedRoute.jsx";
 import UploadAvatar from "./components/user/UploadAvatar.jsx";
 import UpdatePassword from "./components/user/UpdatePassword.jsx";
+import ForgotPassword from "./components/auth/ForgotPassword.jsx";
+import PasswordReset from "./components/auth/PasswordReset.jsx";
 
 function App() {
   return (
@@ -27,6 +29,10 @@ function App() {
             <Route path="/:id" element={<ProductDetails />} />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
+            <Route path="/forgotPassword" element={<ForgotPassword />} />
+            <Route path="/password/reset/:token" element={<PasswordReset />} />
+            
+            
 
             <Route
               path="/me/profile"

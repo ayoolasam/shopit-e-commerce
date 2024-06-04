@@ -12,7 +12,6 @@ export const userApi = createApi({
     baseUrl: "/api/v1/users",
   }),
   tagTypes: ["User"],
-  //endpoints
   endpoints: (builder) => ({
     getMe: builder.query({
       query: () => "/me",
@@ -64,6 +63,26 @@ export const userApi = createApi({
       },
       invalidatesTags: ["User"],
     }),
+    forgotPassword: builder.mutation({
+      query(body) {
+        return {
+          url: "/password/forgot",
+          method: "POST",
+          body,
+        };
+      },
+      invalidatesTags: ["User"],
+    }),
+    resetPassword: builder.mutation({
+      query({token,body}) {
+        return {
+          url: `/password/reset/${token}`,
+          method: "PUT",
+          body,
+        };
+      },
+      invalidatesTags: ["User"],
+    }),
   }),
 });
 
@@ -72,4 +91,6 @@ export const {
   useUpdateProfileMutation,
   useUploadAvatarMutation,
   useUpdatePasswordMutation,
+  useForgotPasswordMutation,
+  useResetPasswordMutation
 } = userApi;

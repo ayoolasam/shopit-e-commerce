@@ -82,7 +82,7 @@ const Login = () => {
               />
             </div>
 
-            <a href="/password/forgot" className="float-end mb-4">
+            <a href="/forgotPassword" className="float-end mb-4">
               Forgot Password?
             </a>
 
