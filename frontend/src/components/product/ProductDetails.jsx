@@ -4,15 +4,37 @@ import { useParams } from "react-router-dom";
 import Loader from "../layout/Loader";
 import StarRatings from "react-star-ratings";
 import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { setCartItem } from "../../redux/feautures/cartSlice";
+import Toastify from "toastify-js";
+import "toastify-js/src/toastify.css";
 
 const ProductDetails = () => {
-  const { id } = useParams();
+  const params = useParams();
+  const dispatch = useDispatch();
+  const [quantity, setQuantity] = useState(1);
 
-  const { data, isLoading, error } = useGetProductDetailsQuery(id);
+  const { data, isLoading, error } = useGetProductDetailsQuery(params?.id);
 
   const product = data?.product;
 
   const [activeimg, setActiveimg] = useState("");
+
+  const increaseQty = () => {
+    const count = document.querySelector(".count");
+    if (count.valueAsNumber >= product?.stock) return;
+
+    const qty = count.valueAsNumber + 1;
+    setQuantity(qty);
+  };
+
+  const decreaseQty = () => {
+    const count = document.querySelector(".count");
+    if (count.valueAsNumber <= 1) return;
+
+    const qty = count.valueAsNumber - 1;
+    setQuantity(qty);
+  };
 
   useEffect(() => {
     setActiveimg(
@@ -25,6 +47,26 @@ const ProductDetails = () => {
   if (error) {
     return <p>error loading product details {error?.message}</p>;
   }
+
+  const setItemsToCart = () => {
+    const cartItem = {
+      product: product?._id,
+      name: product?.name,
+      image: product?.images[0]?.url,
+      stock: product?.stock,
+      quantity,
+    };
+    dispatch(setCartItem(cartItem));
+    Toastify({
+      text: "item added to cart ",
+      duration: 3000,
+      close: true,
+      gravity: "top",
+      position: "center",
+      backgroundColor: "linear-gradient(to right,#d1b410,#ffc371",
+    }).showToast();
+  };
+
   if (isLoading) {
     return <Loader />;
   }
@@ -44,7 +86,7 @@ const ProductDetails = () => {
         <div className="row justify-content-start mt-5">
           {product?.images?.map((img) => (
             <div className="col-2 ms-4 mt-2">
-              <a  href="/" role="button">
+              <a href="/" role="button">
                 <img
                   className={`d-block border rounded p-3 cursor-pointer ${
                     img.url === activeimg ? "border-warning" : ""
@@ -88,20 +130,25 @@ const ProductDetails = () => {
 
         <p id="product_price">{product?.price}</p>
         <div className="stockCounter d-inline">
-          <span className="btn btn-danger minus">-</span>
+          <span className="btn btn-danger minus" onClick={decreaseQty}>
+            -
+          </span>
           <input
             type="number"
             className="form-control count d-inline"
-            value="1"
+            value={quantity}
             readonly
           />
-          <span className="btn btn-primary plus">+</span>
+          <span className="btn btn-primary plus" onClick={increaseQty}>
+            +
+          </span>
         </div>
         <button
           type="button"
           id="cart_btn"
           className="btn btn-primary d-inline ms-4"
-          disabled=""
+          disabled={product.stock <= "0"}
+          onClick={setItemsToCart}
         >
           Add to Cart
         </button>
