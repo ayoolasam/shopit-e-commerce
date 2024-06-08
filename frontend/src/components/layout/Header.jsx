@@ -13,6 +13,8 @@ const Header = () => {
   const [logout] = useLazyLogoutQuery();
   const { user } = useSelector((state) => state.auth);
 
+  const {cartItem} = useSelector((state)=>state.cart)
+
   const logoutHandler = () => {
     logout();
     //refresh this page navigate(0)
@@ -37,7 +39,7 @@ const Header = () => {
             Cart{" "}
           </span>
           <span className="ms-1" id="cart_count">
-            0
+            {cartItem?.length}
           </span>
         </a>
         {user ? (

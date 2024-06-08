@@ -15,6 +15,7 @@ import UploadAvatar from "./components/user/UploadAvatar.jsx";
 import UpdatePassword from "./components/user/UpdatePassword.jsx";
 import ForgotPassword from "./components/auth/ForgotPassword.jsx";
 import PasswordReset from "./components/auth/PasswordReset.jsx";
+import Cart from "./components/cart/Cart.jsx";
 
 function App() {
   return (
@@ -31,6 +32,7 @@ function App() {
             <Route path="/register" element={<Register />} />
             <Route path="/forgotPassword" element={<ForgotPassword />} />
             <Route path="/password/reset/:token" element={<PasswordReset />} />
+            <Route path="/cart" element={<Cart/>} />
             
             
 
