@@ -16,6 +16,7 @@ import UpdatePassword from "./components/user/UpdatePassword.jsx";
 import ForgotPassword from "./components/auth/ForgotPassword.jsx";
 import PasswordReset from "./components/auth/PasswordReset.jsx";
 import Cart from "./components/cart/Cart.jsx";
+import Shipping from "./components/cart/Shipping.jsx";
 
 function App() {
   return (
@@ -41,6 +42,14 @@ function App() {
               element={
                 <ProtectedRoute>
                   <Profile />
+                </ProtectedRoute>
+              }
+            />
+             <Route
+              path="/shippingInfo"
+              element={
+                <ProtectedRoute>
+                  <Shipping />
                 </ProtectedRoute>
               }
             />

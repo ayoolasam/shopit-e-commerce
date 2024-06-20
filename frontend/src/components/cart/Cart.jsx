@@ -6,9 +6,11 @@ import { setCartItem, removeCartItem } from "../../redux/feautures/cartSlice";
 import Toastify from "toastify-js";
 import "toastify-js/src/toastify.css";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const Cart = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const { cartItem } = useSelector((state) => state.cart);
 
   const [quantity, setQuantity] = useState(1);
@@ -42,6 +44,11 @@ const Cart = () => {
   const removeCartItemandler = (id) => {
     dispatch(removeCartItem(id));
   };
+
+  const checkOutHandler = ()=> {
+navigate('/shippingInfo')
+  }
+  
   return (
     <>
       <MetaData title={"Your Cart"} />
@@ -135,7 +142,7 @@ const Cart = () => {
                   </span>
                 </p>
                 <hr />
-                <button id="checkout_btn" class="btn btn-primary w-100">
+                <button id="checkout_btn" class="btn btn-primary w-100" onClick={checkOutHandler}>
                   Check out
                 </button>
               </div>
