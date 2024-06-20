@@ -37,6 +37,7 @@ const Cart = () => {
       name: item?.name,
       image: item?.images,
       stock: item?.stock,
+      price: item?.price,
       quantity: newQty,
     };
     dispatch(setCartItem(cartItem));

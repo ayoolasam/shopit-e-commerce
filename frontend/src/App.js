@@ -17,6 +17,8 @@ import ForgotPassword from "./components/auth/ForgotPassword.jsx";
 import PasswordReset from "./components/auth/PasswordReset.jsx";
 import Cart from "./components/cart/Cart.jsx";
 import Shipping from "./components/cart/Shipping.jsx";
+import ConfirmOrder from "./components/cart/ConfirmOrder.jsx";
+import ProceedPayment from "./components/cart/ProceedPayment.jsx";
 
 function App() {
   return (
@@ -50,6 +52,22 @@ function App() {
               element={
                 <ProtectedRoute>
                   <Shipping />
+                </ProtectedRoute>
+              }
+            />
+             <Route
+              path="/proceedPayment"
+              element={
+                <ProtectedRoute>
+                  <ProceedPayment/>
+                </ProtectedRoute>
+              }
+            />
+             <Route
+              path="/confirmOrder"
+              element={
+                <ProtectedRoute>
+                  <ConfirmOrder />
                 </ProtectedRoute>
               }
             />

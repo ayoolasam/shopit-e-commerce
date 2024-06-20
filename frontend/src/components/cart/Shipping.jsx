@@ -7,9 +7,11 @@ import Toastify from "toastify-js";
 import "toastify-js/src/toastify.css";
 
 import { useEffect } from "react";
+import { Navigate, useNavigate } from "react-router-dom";
 
 const Shipping = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const countriesList = Object.values(countries);
 
@@ -19,7 +21,7 @@ const Shipping = () => {
   const [zipCode, setZipCode] = useState("");
   const [country, setCountry] = useState("");
 
-  const { shippingInfo } = useSelector((state) => state.cart);
+  const { shippingInfo, cartItem } = useSelector((state) => state.cart);
 
   useEffect(() => {
     if (shippingInfo) {
@@ -34,15 +36,7 @@ const Shipping = () => {
     e.preventDefault();
 
     dispatch(saveShippingInfo({ address, city, phone, zipCode, country }));
-
-    Toastify({
-      text: "Shipping Info submitted",
-      duration: 3000,
-      close: true,
-      gravity: "top",
-      position: "right",
-      backgroundColor: "linear-gradient(to right,#ff5f6d,#ffc371",
-    }).showToast();
+    navigate("/confirmOrder");
   };
 
   return (
