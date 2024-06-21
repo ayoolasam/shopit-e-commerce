@@ -5,9 +5,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { saveShippingInfo } from "../../redux/feautures/cartSlice";
 import Toastify from "toastify-js";
 import "toastify-js/src/toastify.css";
+import MetaData from "../layout/MetaData"
 
 import { useEffect } from "react";
 import { Navigate, useNavigate } from "react-router-dom";
+import CheckOutSteps from "./CheckOutSteps";
 
 const Shipping = () => {
   const dispatch = useDispatch();
@@ -41,6 +43,8 @@ const Shipping = () => {
 
   return (
     <>
+    {/* <MetaData title={"shipping Info"}/> */}
+    <CheckOutSteps shippingInfo/>
       <div className="row wrapper mb-5">
         <div className="col-10 col-lg-5">
           <form

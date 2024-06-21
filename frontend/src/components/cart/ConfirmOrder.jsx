@@ -3,6 +3,7 @@ import { useReducer } from "react";
 import { useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { calculateOrderCost } from "../../helpers/helpers";
+import CheckOutSteps from "./CheckOutSteps";
 
 const ConfirmOrder = () => {
   const navigate = useNavigate();
@@ -17,7 +18,10 @@ const ConfirmOrder = () => {
     navigate("/proceedPayment");
   };
   return (
+  
     <>
+
+<CheckOutSteps shippingInfo confirmOrder/>
       <div class="row d-flex justify-content-between">
         <div class="col-12 col-lg-8 mt-5 order-confirm">
           <h4 class="mb-3">Shipping Info</h4>
@@ -56,8 +60,8 @@ const ConfirmOrder = () => {
 
                     <div class="col-4 col-lg-4 mt-4 mt-lg-0">
                       <p>
-                        {item?.quantity}x {item?.price}={" "}
-                        <b>{(item?.quantity * item.price).toFixed(2)}</b>
+                        ${item?.quantity} x ${item?.price}={" "}
+                        <b>${(item?.quantity * item.price).toFixed(2)}</b>
                       </p>
                     </div>
                   </div>

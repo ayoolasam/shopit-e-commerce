@@ -35,7 +35,7 @@ const Cart = () => {
     const cartItem = {
       product: item?.product,
       name: item?.name,
-      image: item?.images,
+      image: item?.images[(0, 1, 2)],
       stock: item?.stock,
       price: item?.price,
       quantity: newQty,
@@ -46,10 +46,10 @@ const Cart = () => {
     dispatch(removeCartItem(id));
   };
 
-  const checkOutHandler = ()=> {
-navigate('/shippingInfo')
-  }
-  
+  const checkOutHandler = () => {
+    navigate("/shippingInfo");
+  };
+
   return (
     <>
       <MetaData title={"Your Cart"} />
@@ -136,14 +136,21 @@ navigate('/shippingInfo')
                 <p>
                   Est. total:{" "}
                   <span class="order-summary-values">
-                    
-                    ${cartItem?.reduce((acc, item) => acc + item?.quantity  * item?.price, 0).toFixed(2)}
-
-                   
+                    $
+                    {cartItem
+                      ?.reduce(
+                        (acc, item) => acc + item?.quantity * item?.price,
+                        0
+                      )
+                      .toFixed(2)}
                   </span>
                 </p>
                 <hr />
-                <button id="checkout_btn" class="btn btn-primary w-100" onClick={checkOutHandler}>
+                <button
+                  id="checkout_btn"
+                  class="btn btn-primary w-100"
+                  onClick={checkOutHandler}
+                >
                   Check out
                 </button>
               </div>

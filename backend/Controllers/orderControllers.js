@@ -32,6 +32,10 @@ exports.newOrder = catchAsyncErrors(async(req,res,next)=>{
           user:req.user._id
         })
 
+if(!order){
+return next(new ErrorHandler("order not ", 500));
+}
+
 
         res.status(200).json({
           message:"order was successfull",
@@ -44,7 +48,7 @@ exports.newOrder = catchAsyncErrors(async(req,res,next)=>{
   console.log(error)
   return res.status(404).json({
   message:{
-      error
+    error:error.message
   }
 })
 }

@@ -9,6 +9,7 @@ const productRoutes = require("./routes/productRoutes");
 const orderRoutes = require("./routes/orderRoutes.js");
 const ErrorMiddleware = require("../backend/middlewares/errors.js");
 const authRoutes = require("./routes/authRoutes.js");
+const paymentRoutes = require("./routes/paymentRoutes.js");
 
 process.on("uncaughtException", (err) => {
   console.log(`ERROR:${err}`);
@@ -28,7 +29,8 @@ mongoose.connect(DB).then(() => {
 app.use("/api/v1/products", productRoutes);
 
 app.use("/api/v1/users", authRoutes);
-app.use("/api/v1/orders", orderRoutes);
+app.use("/api/v1/", orderRoutes);
+app.use("/api/v1/", paymentRoutes);
 
 app.use(ErrorMiddleware);
 

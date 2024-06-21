@@ -25,7 +25,7 @@ const Login = () => {
     }
 
     if (error) {
-      console.log(error);
+      
       Toastify({
         text: errorMessage,
         duration: 3000,
