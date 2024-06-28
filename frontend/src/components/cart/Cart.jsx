@@ -23,13 +23,17 @@ const Cart = () => {
     setItemsToCart(item, newQty);
   };
 
+
+  
   const decreaseQty = (item, quantity) => {
     const newQty = quantity - 1;
 
     if (newQty <= 0) return;
 
-    setItemsToCart(item, newQty);
+    setItemsToCart(item,newQty);
   };
+
+
 
   const setItemsToCart = (item, newQty) => {
     const cartItem = {
@@ -42,13 +46,19 @@ const Cart = () => {
     };
     dispatch(setCartItem(cartItem));
   };
+
+
   const removeCartItemandler = (id) => {
     dispatch(removeCartItem(id));
   };
 
+
+
   const checkOutHandler = () => {
     navigate("/shippingInfo");
   };
+
+
 
   return (
     <>

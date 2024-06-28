@@ -134,6 +134,7 @@ const ProductDetails = () => {
           <span className="btn btn-danger minus" onClick={decreaseQty}>
             -
           </span>
+
           <input
             type="number"
             className="form-control count d-inline"

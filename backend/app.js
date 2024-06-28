@@ -17,8 +17,12 @@ process.on("uncaughtException", (err) => {
   process.exit(1);
 });
 app.use(mongoSanitize());
-app.use(express.json({ limit: "10mb" }));
-// app.use(express.urlencoded({ limit: "50mb", extended: true }));
+app.use(express.json({ limit: "10mb" ,
+  verify:(req,res,buf)=>{
+    req.rawBody = buf.toString()
+  }
+}));
+
 app.use(cookieParser());
 
 const DB = process.env.MONGO_DB;

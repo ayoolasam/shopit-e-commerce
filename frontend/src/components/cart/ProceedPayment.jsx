@@ -23,6 +23,7 @@ const ProceedPayment = () => {
 
   useEffect(() => {
     if (checkoutData) window.location.href = checkoutData?.url;
+
     if (checkoutError) {
       Toastify({
         text: checkoutError?.data?.message,
@@ -62,6 +63,8 @@ const ProceedPayment = () => {
     }
   }, [error, isSuccess]);
 
+
+
   const submitHandler = (e) => {
     e.preventDefault();
 
@@ -100,6 +103,8 @@ const ProceedPayment = () => {
       StripeCheckOutSession(orderData);
     }
   };
+
+  
 
   return (
     <>

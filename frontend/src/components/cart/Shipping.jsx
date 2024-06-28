@@ -34,6 +34,8 @@ const Shipping = () => {
       setCountry(shippingInfo.country);
     }
   }, [shippingInfo]);
+
+  
   const submitHandler = (e) => {
     e.preventDefault();
 

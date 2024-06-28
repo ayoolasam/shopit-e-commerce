@@ -5,7 +5,7 @@ import { Navigate } from "react-router-dom";
 import Loader from "../layout/Loader";
 
 const ProtectedRoute = ({ children }) => {
-  const navigate = useNavigate();
+ 
   const { isAuthenticated, Loading } = useSelector((state) => state.auth);
 
   if (Loading) return <Loader />;
