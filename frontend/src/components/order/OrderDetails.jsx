@@ -1,5 +1,5 @@
 import React from "react";
-import { useOrderDetailsQuery } from "../../redux/api/orderApi";
+import { useGetorderDetailsQuery } from "../../redux/api/orderApi";
 import { useParams } from "react-router-dom";
 import Toastify from "toastify-js";
 import "toastify-js/src/toastify.css";
@@ -8,9 +8,10 @@ import { useEffect } from "react";
 const OrderDetails = () => {
   const params = useParams();
 
-  const { data, isLoading, error } = useOrderDetailsQuery(params?.id);
-  console.log(params?.id);
-  const order = data?.order;
+  const { data, isLoading, error } = useGetorderDetailsQuery(params?.id);
+
+  const order = data?.order || {};
+
   console.log(order);
 
   const {

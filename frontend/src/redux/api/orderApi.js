@@ -26,15 +26,18 @@ export const orderApi = createApi({
     }),
 
     getMyorders: builder.query({
-     query: () => `/me/order`
+      query: () => `/me/order`,
     }),
-    
-    orderDetails: builder.query({
-      query: (id) => `/order/${id}`
-   
-     }),
+
+    getorderDetails: builder.query({
+      query: (id) => `/order/${id}`,
+    }),
   }),
 });
 
-export const { useCreateNewOrderMutation, useStripeCheckOutSessionMutation,useGetMyordersQuery,useOrderDetailsQuery } =
-  orderApi;
+export const {
+  useCreateNewOrderMutation,
+  useStripeCheckOutSessionMutation,
+  useGetMyordersQuery,
+  useGetorderDetailsQuery,
+} = orderApi;
