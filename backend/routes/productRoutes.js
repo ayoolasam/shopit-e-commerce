@@ -10,7 +10,7 @@ router.get('/products',productController.getProducts)
 
 
 router.post('/admin/products',protectRoute.isAuthenticatedUser,protectRoute.authorizeRoles('admin'),productController.newProducts)
-router.get('/:id',productController.getProductDetails)
+router.get('/product/:id',productController.getProductDetails)
 router.put('admin/products/:id',protectRoute.isAuthenticatedUser,protectRoute.authorizeRoles('admin'),productController.updateProduct)
 router.delete('admin/products/:id',protectRoute.isAuthenticatedUser,protectRoute.authorizeRoles('admin'),productController.deleteProduct)
 router.put('/reviews',protectRoute.isAuthenticatedUser,productController.createProductReview)

@@ -62,9 +62,6 @@ exports.stripeCheckOutSession = catchAsyncErrors(async (req, res, next) => {
   }
 });
 
-
-
-
 const getOrderItems = async (line_items) => {
   return new Promise((resolve, reject) => {
     let cartItems = [];
@@ -84,13 +81,6 @@ const getOrderItems = async (line_items) => {
     });
   });
 };
-
-
-
-
-
-
-
 
 // Create new order in the database after payment successfull
 exports.stripeWebhook = catchAsyncErrors(async (req, res, next) => {

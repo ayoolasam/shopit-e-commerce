@@ -19,6 +19,8 @@ import Cart from "./components/cart/Cart.jsx";
 import Shipping from "./components/cart/Shipping.jsx";
 import ConfirmOrder from "./components/cart/ConfirmOrder.jsx";
 import ProceedPayment from "./components/cart/ProceedPayment.jsx";
+import MyOrders from "./components/order/MyOrders.jsx";
+import OrderDetails from "./components/order/OrderDetails.jsx";
 
 function App() {
   return (
@@ -35,9 +37,7 @@ function App() {
             <Route path="/register" element={<Register />} />
             <Route path="/forgotPassword" element={<ForgotPassword />} />
             <Route path="/password/reset/:token" element={<PasswordReset />} />
-            <Route path="/cart" element={<Cart/>} />
-            
-            
+            <Route path="/cart" element={<Cart />} />
 
             <Route
               path="/me/profile"
@@ -47,7 +47,15 @@ function App() {
                 </ProtectedRoute>
               }
             />
-             <Route
+            <Route
+              path="/me/orders"
+              element={
+                <ProtectedRoute>
+                  <MyOrders />
+                </ProtectedRoute>
+              }
+            />
+            <Route
               path="/shippingInfo"
               element={
                 <ProtectedRoute>
@@ -55,15 +63,23 @@ function App() {
                 </ProtectedRoute>
               }
             />
-             <Route
-              path="/proceedPayment"
+            <Route
+              path="/me/order/:id"
               element={
                 <ProtectedRoute>
-                  <ProceedPayment/>
+                  <OrderDetails />
                 </ProtectedRoute>
               }
             />
-             <Route
+            <Route
+              path="/proceedPayment"
+              element={
+                <ProtectedRoute>
+                  <ProceedPayment />
+                </ProtectedRoute>
+              }
+            />
+            <Route
               path="/confirmOrder"
               element={
                 <ProtectedRoute>
@@ -83,7 +99,7 @@ function App() {
               path="/me/upload_avatar"
               element={
                 <ProtectedRoute>
-                  <UploadAvatar/>
+                  <UploadAvatar />
                 </ProtectedRoute>
               }
             />
@@ -91,7 +107,7 @@ function App() {
               path="/me/update_password"
               element={
                 <ProtectedRoute>
-                  <UpdatePassword/>
+                  <UpdatePassword />
                 </ProtectedRoute>
               }
             />
