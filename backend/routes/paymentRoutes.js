@@ -4,7 +4,7 @@ const router = express.Router();
 const protectRoute = require("../middlewares/auth.js");
 const {
   stripeCheckOutSession,
-  stripeWebhook
+  stripeWebhook,
 } = require("../Controllers/paymentContollers.js");
 
 //Routes
@@ -13,9 +13,6 @@ router.post(
   protectRoute.isAuthenticatedUser,
   stripeCheckOutSession
 );
-router.post(
-  "/payment/webhook",
-stripeWebhook
-);
+router.post("/payment/webhook", stripeWebhook);
 
 module.exports = router;

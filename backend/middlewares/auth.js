@@ -24,7 +24,7 @@ if(!token){
 
 
 
-console.log(decoded)
+
 
 next()
 }) 

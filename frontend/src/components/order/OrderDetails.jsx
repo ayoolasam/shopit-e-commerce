@@ -1,6 +1,6 @@
 import React from "react";
 import { useGetorderDetailsQuery } from "../../redux/api/orderApi";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import Toastify from "toastify-js";
 import "toastify-js/src/toastify.css";
 import { useEffect } from "react";
@@ -16,12 +16,14 @@ const OrderDetails = () => {
 
   const {
     shippingInfo,
-    OrderItems,
+    orderItems,
     paymentInfo,
     user,
     totalAmount,
     orderStatus,
+    paymentMethod,
   } = order;
+  const isPaid = paymentInfo?.status === "paid" ? true : false;
 
   useEffect(() => {
     if (error) {
@@ -48,17 +50,23 @@ const OrderDetails = () => {
           <tbody>
             <tr>
               <th scope="row">ID</th>
-              <td>{order?.id}</td>
+              <td>{order?._id}</td>
             </tr>
             <tr>
               <th scope="row">Status</th>
-              <td class="greenColor">
-                <b>Delivered</b>
+              <td
+                class={
+                  String(orderStatus).includes("Delivered")
+                    ? "greenColor"
+                    : "redColor"
+                }
+              >
+                <b>{orderStatus}</b>
               </td>
             </tr>
             <tr>
               <th scope="row">Date</th>
-              <td>October 1, 2023, 10:30 AM</td>
+              <td>{new Date(order?.createdAt).toLocaleString("en-Us")}</td>
             </tr>
           </tbody>
         </table>
@@ -68,15 +76,18 @@ const OrderDetails = () => {
           <tbody>
             <tr>
               <th scope="row">Name</th>
-              <td>John Doe</td>
+              <td>{user?.name}</td>
             </tr>
             <tr>
               <th scope="row">Phone No</th>
-              <td>+1 123-456-7890</td>
+              <td>{shippingInfo?.phoneNo}</td>
             </tr>
             <tr>
               <th scope="row">Address</th>
-              <td>123 Main Street, City, Postal Code, Country</td>
+              <td>
+                {shippingInfo?.address},{shippingInfo?.city},
+                {shippingInfo?.country}.{shippingInfo?.zipCode}
+              </td>
             </tr>
           </tbody>
         </table>
@@ -86,21 +97,21 @@ const OrderDetails = () => {
           <tbody>
             <tr>
               <th scope="row">Status</th>
-              <td class="greenColor">
-                <b>PAID</b>
+              <td class={isPaid ? "greenColor" : "redColor"}>
+                <b>{paymentInfo?.status}</b>
               </td>
             </tr>
             <tr>
               <th scope="row">Method</th>
-              <td>Credit Card</td>
+              <td>{paymentMethod}</td>
             </tr>
             <tr>
               <th scope="row">Stripe ID</th>
-              <td>stripe-id</td>
+              <td>{paymentInfo?.id || "Not Available"}</td>
             </tr>
             <tr>
               <th scope="row">Amount Paid</th>
-              <td>$250.00</td>
+              <td>{totalAmount}</td>
             </tr>
           </tbody>
         </table>
@@ -109,28 +120,32 @@ const OrderDetails = () => {
 
         <hr />
         <div class="cart-item my-1">
-          <div class="row my-5">
-            <div class="col-4 col-lg-2">
-              <img
-                src="../images/product.jpg"
-                alt="Product Name"
-                height="45"
-                width="65"
-              />
-            </div>
+          {orderItems?.map((item) => {
+            return (
+              <div class="row my-5">
+                <div class="col-4 col-lg-2">
+                  <img
+                    src={item?.image}
+                    alt={item?.name}
+                    height="45"
+                    width="65"
+                  />
+                </div>
 
-            <div class="col-5 col-lg-5">
-              <a href="/products/product-id">Product Name</a>
-            </div>
+                <div class="col-5 col-lg-5">
+                  <Link to={`/${item?._id}`}>{item?.name}</Link>
+                </div>
 
-            <div class="col-4 col-lg-2 mt-4 mt-lg-0">
-              <p>$50.00</p>
-            </div>
+                <div class="col-4 col-lg-2 mt-4 mt-lg-0">
+                  <p>{item?.price}</p>
+                </div>
 
-            <div class="col-4 col-lg-3 mt-4 mt-lg-0">
-              <p>2 Piece(s)</p>
-            </div>
-          </div>
+                <div class="col-4 col-lg-3 mt-4 mt-lg-0">
+                  <p>{item.quantity}</p>
+                </div>
+              </div>
+            );
+          })}
         </div>
         <hr />
       </div>

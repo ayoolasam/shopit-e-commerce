@@ -45,7 +45,7 @@ const ProductDetails = () => {
   }, [product]);
 
   if (error) {
-    return <p>error loading product details {error?.message}</p>;
+    return <h1 className="my-5 ">Error loading product details... {error?.data?.message}</h1>;
   }
 
   const setItemsToCart = () => {

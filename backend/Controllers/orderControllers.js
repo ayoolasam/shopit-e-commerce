@@ -30,7 +30,7 @@ exports.newOrder = catchAsyncErrors(async (req, res, next) => {
     });
 
     if (!order) {
-      return next(new ErrorHandler("order not ", 500));
+      return next(new ErrorHandler("order not Accepted", 500));
     }
 
     res.status(200).json({
