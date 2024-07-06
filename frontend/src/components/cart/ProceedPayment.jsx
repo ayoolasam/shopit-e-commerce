@@ -59,7 +59,7 @@ const ProceedPayment = () => {
         position: "right",
         backgroundColor: "linear-gradient(to right,#ff5f6d,#ffc371",
       }).showToast();
-      navigate("/");
+      navigate("/me/orders?order_success=true");
     }
   }, [error, isSuccess]);
 

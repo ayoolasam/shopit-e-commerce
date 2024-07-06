@@ -8,12 +8,16 @@ import { useDispatch } from "react-redux";
 import { setCartItem } from "../../redux/feautures/cartSlice";
 import Toastify from "toastify-js";
 import "toastify-js/src/toastify.css";
+import { useSelector } from "react-redux";
+import Review from "../reviews/Review";
+import ListofReviews from "../reviews/ListofReviews";
 
 const ProductDetails = () => {
   const params = useParams();
   const dispatch = useDispatch();
   const [quantity, setQuantity] = useState(1);
 
+  const { isAuthenticated } = useSelector((state) => state.auth);
   const { data, isLoading, error } = useGetProductDetailsQuery(params?.id);
 
   const product = data?.product;
@@ -45,7 +49,11 @@ const ProductDetails = () => {
   }, [product]);
 
   if (error) {
-    return <h1 className="my-5 ">Error loading product details... {error?.data?.message}</h1>;
+    return (
+      <h1 className="my-5 ">
+        Error loading product details... {error?.data?.message}
+      </h1>
+    );
   }
 
   const setItemsToCart = () => {
@@ -73,6 +81,7 @@ const ProductDetails = () => {
   }
 
   return (
+    <>
     <div className="row d-flex justify-content-around">
       <div className="col-12 col-lg-5 img-fluid" id="product_image">
         <div className="p-3">
@@ -175,12 +184,17 @@ const ProductDetails = () => {
         <p id="product_seller mb-3">
           Sold by: <strong>{product?.seller}</strong>
         </p>
-
-        <div className="alert alert-danger my-5" type="alert">
-          Login to post your review.
-        </div>
+        {isAuthenticated ? (
+          <Review productId={product?._id} />
+        ) : (
+          <div className="alert alert-danger my-5" type="alert">
+            Login to post your review
+          </div>
+        )}
       </div>
     </div>
+    {product?.reviews?.length > 0 && <ListofReviews reviews={product?.reviews}/>}
+</>
   );
 };
 

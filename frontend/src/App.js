@@ -21,6 +21,8 @@ import ConfirmOrder from "./components/cart/ConfirmOrder.jsx";
 import ProceedPayment from "./components/cart/ProceedPayment.jsx";
 import MyOrders from "./components/order/MyOrders.jsx";
 import OrderDetails from "./components/order/OrderDetails.jsx";
+import Invoice from "./components/invoice/Invoice.jsx";
+import Review from "./components/reviews/Review.jsx";
 
 function App() {
   return (
@@ -47,6 +49,24 @@ function App() {
                 </ProtectedRoute>
               }
             />
+
+            <Route
+              path="/invoice/order/:id"
+              element={
+                <ProtectedRoute>
+                  <Invoice />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/review"
+              element={
+                <ProtectedRoute>
+                  <Review />
+                </ProtectedRoute>
+              }
+            />
+
             <Route
               path="/me/orders"
               element={

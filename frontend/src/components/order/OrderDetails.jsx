@@ -12,7 +12,7 @@ const OrderDetails = () => {
 
   const order = data?.order || {};
 
-  console.log(order);
+
 
   const {
     shippingInfo,
@@ -23,6 +23,7 @@ const OrderDetails = () => {
     orderStatus,
     paymentMethod,
   } = order;
+  
   const isPaid = paymentInfo?.status === "paid" ? true : false;
 
   useEffect(() => {
@@ -42,7 +43,7 @@ const OrderDetails = () => {
       <div class="col-12 col-lg-9 mt-5 order-details">
         <div class="d-flex justify-content-between align-items-center">
           <h3 class="mt-5 mb-4">Your Order Details</h3>
-          <a class="btn btn-success" href="/invoice/order/order-id">
+          <a class="btn btn-success" href={`/invoice/order/${order?._id}`}>
             <i class="fa fa-print"></i> Invoice
           </a>
         </div>
