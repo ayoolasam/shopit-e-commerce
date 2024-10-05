@@ -4,12 +4,24 @@ require("dotenv").config();
 const mongoose = require("mongoose");
 const mongoSanitize = require("express-mongo-sanitize");
 const cookieParser = require("cookie-parser");
+const cors = require("cors");
 
 const productRoutes = require("./routes/productRoutes");
 const orderRoutes = require("./routes/orderRoutes.js");
 const ErrorMiddleware = require("../backend/middlewares/errors.js");
 const authRoutes = require("./routes/authRoutes.js");
 const paymentRoutes = require("./routes/paymentRoutes.js");
+
+
+
+app.set("trust proxy", 1);
+app.use(
+  cors({
+    origin: ["http://localhost:3000", "https://jobs-with-vuejs.vercel.app"], // Replace with your frontend's actual domain
+    credentials: true, // This allows cookies to be sent and received
+  })
+);
+
 
 process.on("uncaughtException", (err) => {
   console.log(`ERROR:${err}`);
