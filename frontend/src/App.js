@@ -23,6 +23,7 @@ import MyOrders from "./components/order/MyOrders.jsx";
 import OrderDetails from "./components/order/OrderDetails.jsx";
 import Invoice from "./components/invoice/Invoice.jsx";
 import Review from "./components/reviews/Review.jsx";
+import DashBoard from "./components/admin/DashBoard.jsx";
 
 function App() {
   return (
@@ -128,6 +129,17 @@ function App() {
               element={
                 <ProtectedRoute>
                   <UpdatePassword />
+                </ProtectedRoute>
+              }
+            />
+
+
+            //admin Routes
+            <Route
+              path="/admin/Dashboard"
+              element={
+                <ProtectedRoute admin={true}>
+                  <DashBoard/>
                 </ProtectedRoute>
               }
             />

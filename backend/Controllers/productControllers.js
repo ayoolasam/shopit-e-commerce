@@ -4,6 +4,7 @@ const errorHandler = require('../utils/errorHandler')
 const catchAsyncErrors = require('../middlewares/catchAsyncErrors.js')
 const APIFilters = require('../utils/apiFilters.js')
 const mongoose = require('mongoose')
+const Order = require("../Models/order.js")
 // const ErrorHandler = require('../utils/errorHandler')
 
 
@@ -276,3 +277,33 @@ await product.save({validateBeforeSave:false});
   }
   }
 )
+
+//can user review => /api/v1/can_review
+
+
+//GET SINGLE PRODUCT DETAILS
+exports.canUserReview =  catchAsyncErrors(async(req,res,next)=>{
+  try{
+          const orders = await Order.find({
+            user:req.user._id,
+          "orderItems.product":req.query.productId}) 
+         
+          if(orders.length === 0){
+            return res.status(200).json({
+              canReview:false
+            })
+          }
+  
+      res.status(200).json({
+          canReview:true,  
+              
+            
+          })
+  }catch(err){
+    console.log(err)
+    res.status(404).json({
+      err
+    })
+  }
+  }
+  )

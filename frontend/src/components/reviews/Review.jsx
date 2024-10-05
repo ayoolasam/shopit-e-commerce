@@ -1,7 +1,7 @@
 import React from "react";
 import StarRatings from "react-star-ratings";
 import { useState } from "react";
-import { useCreatereviewMutation } from "../../redux/api/productsApi";
+import { useCreatereviewMutation ,useCanUserReviewQuery} from "../../redux/api/productsApi";
 import { useEffect } from "react";
 import Toastify from "toastify-js";
 import "toastify-js/src/toastify.css";
@@ -12,6 +12,8 @@ const Review = ({productId}) => {
 
 
   const [createReview,{isLoading,error,isSuccess}]=useCreatereviewMutation()
+ const{data} = useCanUserReviewQuery(productId)
+ const canReview = data?.canReview
 
   const submitHandler = () => {
     const reviewData = {rating,comment,productId}
@@ -41,6 +43,9 @@ const Review = ({productId}) => {
   }, [error,isSuccess]);
   return (
     <div>
+    {
+      canReview && 
+     (
       <button
         id="review_btn"
         type="button"
@@ -50,6 +55,7 @@ const Review = ({productId}) => {
       >
         Submit Your Review
       </button>
+     )}
 
       <div className="row mt-2 mb-5">
         <div className="rating w-50">
