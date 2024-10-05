@@ -17,11 +17,14 @@ process.on("uncaughtException", (err) => {
   process.exit(1);
 });
 app.use(mongoSanitize());
-app.use(express.json({ limit: "10mb" ,
-  verify:(req,res,buf)=>{
-    req.rawBody = buf.toString()
-  }
-}));
+app.use(
+  express.json({
+    limit: "10mb",
+    verify: (req, res, buf) => {
+      req.rawBody = buf.toString();
+    },
+  })
+);
 
 app.use(cookieParser());
 
@@ -30,7 +33,7 @@ mongoose.connect(DB).then(() => {
   console.log("database Connected");
 });
 
-app.use("/api/v1/products", productRoutes);
+app.use("/api/v1/", productRoutes);
 
 app.use("/api/v1/users", authRoutes);
 app.use("/api/v1/", orderRoutes);
