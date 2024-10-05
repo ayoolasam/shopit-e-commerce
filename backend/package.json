@@ -4,15 +4,15 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "start":"SET NODE_ENV=production & node app.js",
+    "start": "SET NODE_ENV=production & node app.js",
     "dev": "nodemon app.js",
     "prod": " SET NODE_ENV=PRODUCTION& nodemon app.js"
-
   },
   "author": "ayoola",
   "license": "ISC",
   "dependencies": {
     "bcrypt": "^5.1.1",
+    "bcryptjs": "^2.4.3",
     "cloudinary": "^2.2.0",
     "cookie-parser": "^1.4.6",
     "crypto": "^1.0.1",
