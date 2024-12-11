@@ -22,7 +22,7 @@ app.use(
     credentials: true, // This allows cookies to be sent and received
   })
 );
-g
+
 process.on("uncaughtException", (err) => {
   console.log(`ERROR:${err}`);
   console.log("shtting down due uncaught exceptions");
