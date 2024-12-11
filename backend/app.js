@@ -12,17 +12,17 @@ const ErrorMiddleware = require("../backend/middlewares/errors.js");
 const authRoutes = require("./routes/authRoutes.js");
 const paymentRoutes = require("./routes/paymentRoutes.js");
 
-
-
 app.set("trust proxy", 1);
 app.use(
   cors({
-    origin: ["http://localhost:3000", "https://jobs-with-vuejs.vercel.app"], // Replace with your frontend's actual domain
+    origin: [
+      "https://shopit-e-commerce.vercel.app",
+      "https://jobs-with-vuejs.vercel.app",
+    ], // Replace with your frontend's actual domain
     credentials: true, // This allows cookies to be sent and received
   })
 );
-
-
+g
 process.on("uncaughtException", (err) => {
   console.log(`ERROR:${err}`);
   console.log("shtting down due uncaught exceptions");
