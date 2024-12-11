@@ -19,7 +19,7 @@ export const userApi = createApi({
       //transform the result
       transformResponse: (result) => result.user,
       async onQueryStarted(args, { dispatch, queryFulfilled }) {
-        try {
+        try {cd
           //extract data from the query after it was fulfilled
           const { data } = await queryFulfilled;
           dispatch(setUser(data));
