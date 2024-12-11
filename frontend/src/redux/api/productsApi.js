@@ -3,13 +3,13 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 export const productApi = createApi({
   reducerPath: "productApi",
   baseQuery: fetchBaseQuery({
-    baseUrl: "https://shopit-e-commerce-1.onrender.com/api/v1/products",
+    baseUrl: "https://shopit-e-commerce-1.onrender.com/api/v1/",
   }),
   tagTypes: ["Product"],
   endpoints: (builder) => ({
     getProducts: builder.query({
       query: (params) => ({
-        url: "/",
+        url: "/products",
         params: {
           page: params?.page,
           keyword: params?.keyword,
