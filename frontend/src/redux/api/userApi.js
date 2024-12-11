@@ -9,7 +9,7 @@ export const userApi = createApi({
   reducerPath: "userApi",
   //base url fetchbaseurl
   baseQuery: fetchBaseQuery({
-    baseUrl: "/api/v1/users",
+    baseUrl: "https://shopit-e-commerce-1.onrender.com/api/v1/users",
   }),
   tagTypes: ["User"],
   endpoints: (builder) => ({

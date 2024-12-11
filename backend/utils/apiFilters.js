@@ -15,7 +15,7 @@ class APIFilters {
         }
       : {};
     this.query = this.query.find({ ...keyword });
-    return this;
+    return this;_
   }
 
   filters() {

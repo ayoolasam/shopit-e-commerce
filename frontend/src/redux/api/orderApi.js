@@ -3,7 +3,7 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 export const orderApi = createApi({
   reducerPath: "orderApi",
   baseQuery: fetchBaseQuery({
-    baseUrl: "/api/v1",
+    baseUrl: "https://shopit-e-commerce-1.onrender.com/api/v1",
   }),
   endpoints: (builder) => ({
     createNewOrder: builder.mutation({

@@ -5,7 +5,7 @@ import { userApi } from './userApi';
 export const authApi = createApi({
   reducerPath:'authApi',
   baseQuery: fetchBaseQuery({
-    baseUrl:"api/v1/users"
+    baseUrl:"https://shopit-e-commerce-1.onrender.com/api/v1/users"
   }),
   endpoints:(builder) => ({
     login: builder.mutation({
