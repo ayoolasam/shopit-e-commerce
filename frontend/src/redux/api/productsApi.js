@@ -9,11 +9,11 @@ export const productApi = createApi({
   endpoints: (builder) => ({
     getProducts: builder.query({
       query: (params) => ({
-        url: "/products",
+        url: "/",
         params: {
           page: params?.page,
           keyword: params?.keyword,
-          category :params?.category,
+          category: params?.category,
           "price[gte]": params?.min,
           "price[lte]": params?.max,
         },
